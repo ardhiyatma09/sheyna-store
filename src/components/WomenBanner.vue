@@ -14,12 +14,12 @@
                                     <li class="w-icon active">
                                         <a href="#"><i class="icon_bag_alt"></i></a>
                                     </li>
-                                    <li class="quick-view"><router-link to="/product">+ Quick View</router-link></li>
+                                    <li class="quick-view"><router-link :to="'/product/'+product.id">+ Quick View</router-link></li>
                                 </ul>
                             </div>
                             <div class="pi-text">
                                 <div class="catagory-name">{{product.type}}</div>
-                                <router-link to="/product">
+                                <router-link :to="'/product/'+product.id">
                                     <h5>{{product.name}}</h5>
                                 </router-link>
                                 <div class="product-price">

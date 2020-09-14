@@ -14,7 +14,8 @@ Vue.use(VueRouter)
     component: Home
   },
   {
-    path: '/product',
+    path: '/product/:id',
+    props:true,
     name: 'product',
     component: Product
   },
