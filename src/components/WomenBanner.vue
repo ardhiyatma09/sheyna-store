@@ -12,7 +12,7 @@
                                 <img src="https://via.placeholder.com/500x500.png" alt="" v-else>
                                 <ul>
                                     <li class="w-icon active">
-                                        <a href="#"><i class="icon_bag_alt"></i></a>
+                                        <a href="#" @click="saveKeranjang(product.id,product.name,product.price,product.galleries[0].photo)"><i class="icon_bag_alt"></i></a>
                                     </li>
                                     <li class="quick-view"><router-link :to="'/product/'+product.id">+ Quick View</router-link></li>
                                 </ul>
@@ -52,7 +52,25 @@ export default {
   },
   data() {
       return{
-          products: []
+          products: [],
+          keranjangUser:[]
+      }
+  },
+  methods:{
+      saveKeranjang(idProduct,nameProduct,priceProduct,photoProduct){
+
+        var productStored = {
+            'id' : idProduct,
+            'name' : nameProduct,
+            'price' : priceProduct,
+            'photo' : photoProduct
+        }
+        
+        this.keranjangUser.push(productStored);
+        const parsed = JSON.stringify(this.keranjangUser);
+        localStorage.setItem('keranjangUser', parsed);
+
+        window.location.reload();
       }
   },
   mounted() {
@@ -60,6 +78,14 @@ export default {
         .get("http://127.0.0.1:8000/api/products")
         .then(res => (this.products = res.data.data.data))
         .catch(err => console.log(err));
+
+        if(localStorage.getItem("keranjangUser")){
+            try{
+                this.keranjangUser = JSON.parse(localStorage.getItem('keranjangUser'));
+            } catch (e) {
+                localStorage.removeItem('keranjangUser');
+            }
+        }
   }
 }
 </script>
